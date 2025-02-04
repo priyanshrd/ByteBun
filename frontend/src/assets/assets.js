@@ -92,15 +92,15 @@ export const assets = {
 
 export const menu_list = [
     {
-        menu_name: "Biryani",
+        menu_name: "Biriyani",
         menu_image: menu_1
     },
     {
-        menu_name: "Indian Thali",
+        menu_name: "Indian",
         menu_image: menu_2
     },
     {
-        menu_name: "Pizza",
+        menu_name: "Italian",
         menu_image: menu_3
     },
     {
@@ -108,24 +108,16 @@ export const menu_list = [
         menu_image: menu_4
     },
     {
-        menu_name: "South Indian",
-        menu_image: menu_5
-    },
-    {
-        menu_name: "North Indian",
-        menu_image: menu_6
-    },
-    {
         menu_name: "Chinese",
         menu_image: menu_7
     },
     {
-        menu_name: "Ice Creams",
-        menu_image: menu_8
+        menu_name: "South Indian",
+        menu_image: menu_5
     },
     {
-        menu_name: "Tandoori",
-        menu_image: menu_9
+        menu_name: "Ice Creams",
+        menu_image: menu_8
     },
     {
         menu_name: "Chaats",
@@ -140,23 +132,15 @@ export const menu_list = [
         menu_image: menu_12
     },
     {
-        menu_name: "Pav Bhaji",
-        menu_image: menu_13
-    },
-    {
-        menu_name: "Drinks",
+        menu_name: "Beverages",
         menu_image: menu_14
-    },
-    {
-        menu_name: "Parathas",
-        menu_image: menu_15
     },
     {
         menu_name: "Meat",
         menu_image: menu_16
     },
     {
-        menu_name: "Sweets",
+        menu_name: "Dessert",
         menu_image: menu_17
     }]
 

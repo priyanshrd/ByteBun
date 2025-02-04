@@ -4,7 +4,7 @@ import props from 'prop-types';
 import assets from '../../assets/assets'
 import {useState} from 'react'
 import { useContext} from 'react';
-import { StoreContext } from '../../context/StoreContext';
+import { StoreContext } from '../../Context/StoreContext';
 
 const FoodItem = ({id,name,price,description,image}) => {
 

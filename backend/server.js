@@ -1,38 +1,33 @@
-import express from "express"
-import cors  from "cors"
-import { connect } from "mongoose"
-import {connectDB} from "./config/db.js"
-import foodRouter from "./routes/foodRoute.js"
+import express  from "express"
+import cors from 'cors'
+import { connectDB } from "./config/db.js"
 import userRouter from "./routes/userRoute.js"
+import foodRouter from "./routes/foodRoute.js"
 import 'dotenv/config'
+import cartRouter from "./routes/cartRoute.js"
+import orderRouter from "./routes/orderRoute.js"
 
-// app config 
+// app config
 const app = express()
-const port = 4000
+const port = process.env.PORT || 4000;
 
-//middleware
+
+// middlewares
 app.use(express.json())
 app.use(cors())
 
-// db config
-connectDB();
+// db connection
+connectDB()
 
+// api endpoints
+app.use("/api/user", userRouter)
+app.use("/api/food", foodRouter)
+app.use("/images",express.static('uploads'))
+app.use("/api/cart", cartRouter)
+app.use("/api/order",orderRouter)
 
-//api endpoints
-app.use("/api/food",foodRouter)
-app.use("/images",express.static("uploads"))
+app.get("/", (req, res) => {
+    res.send("API Working")
+  });
 
-app.use("/api/user",userRouter)
-
-
-
-app.get("/",(req,res)=>{
-    res.send("Working")
-}) // get request
-
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
-}) // listen to the server
-
-// mongodb+srv://bytebun:bytebun1212025@cluster0.rv58u.mongodb.net/?
-
+app.listen(port, () => console.log(`Server started on http://localhost:${port}`))

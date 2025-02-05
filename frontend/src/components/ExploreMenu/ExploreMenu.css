@@ -72,12 +72,12 @@
 }
 
 .explore-menu-list-item .active {
-    border: 4px solid tomato;
+    border: 4px solid #5474b4;
     padding: 2px;
 }
 
 .explore-menu-list .active {
-    border: 4px solid tomato;
+    border: 4px solid #5474b4;
     padding: 2px;
 }
 

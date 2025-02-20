@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer'
 import Navbar from './components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Cart from './pages/Cart/Cart'
+import Chatbot from './pages/Chatbot/Chatbot'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import MyOrders from './pages/MyOrders/MyOrders'
@@ -22,6 +23,7 @@ const App = () => {
       <div className='app'>
         <Navbar setShowLogin={setShowLogin}/>
         <Routes>
+          <Route path="/chatbot" element={<Chatbot />} /> 
           <Route path='/' element={<Home />}/>
           <Route path='/cart' element={<Cart />}/>
           <Route path='/order' element={<PlaceOrder />}/>

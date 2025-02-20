@@ -65,6 +65,7 @@
 
 @media (max-width:700px) {
     .place-order{
+        margin-top: 0px;
         flex-direction: column;
     }
 }

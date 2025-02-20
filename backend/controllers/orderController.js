@@ -1,5 +1,6 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import 'dotenv/config';
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import mongoose from "mongoose";
@@ -7,7 +8,43 @@ import mongoose from "mongoose";
 // Config variables
 const currency = "inr";
 const deliveryCharge = 50;
-const frontend_URL = "http://localhost:5173";
+const frontend_URL = "http://192.168.247.109:5174";
+
+
+// Adding Review for Order
+const reviewOrder = async (req, res) => {
+    try {
+        const { orderId, review, rating } = req.body;
+
+        // Validate the input
+        if (!orderId || !rating) {
+            return res.status(400).json({ success: false, message: "Order ID and Rating are required" });
+        }
+
+        // Ensure the rating is within the valid range (1 to 5)
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ success: false, message: "Rating must be between 1 and 5" });
+        }
+
+        // Find the order and update the review and rating
+        const updatedOrder = await orderModel.findByIdAndUpdate(
+            orderId,
+            { review, rating },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        res.json({ success: true, message: "Review submitted successfully", data: updatedOrder });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Error submitting review" });
+    }
+};
+
+export { reviewOrder };
 
 // Placing User Order using Stripe
 const placeOrder = async (req, res) => {

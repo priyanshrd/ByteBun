@@ -1,5 +1,5 @@
 .cart {
-    margin: 100px 0px;
+    margin: 50px 0px;
 }
 
 .cart hr {
@@ -99,10 +99,20 @@
 }
 
 @media(max-width:750px) {
+    .cart {
+        margin: 15px 0 0 0;
+    }
     .cart-bottom {
+        margin-top: 40px;
+        margin-bottom: 10px;
         flex-direction: column-reverse;
     }
+    .cart-total {
+        margin: 0 0;
+    }
     .cart-promocode{
+        flex:0;
+        margin:0 0;
         justify-content: start;
     }
 }

@@ -27,11 +27,11 @@ const Navbar = ({setShowLogin}) => {
         <Link to='/' onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>Home</Link>
         <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>Menu</a>
         <a href='#app-download' onClick={()=>setMenu("download")} className={menu==="download"?"active":""}>Download</a>
-        <a href='#footer' onClick={()=>setMenu("contact")} className={menu==="contact"?"active":""}>Contact</a>
+        <Link to='/chatbot' onClick={() => setMenu("chatbot")} className={menu === "chatbot" ? "active" : ""}>Chatbot</Link>
+
 
       </ul>
       <div className = "navbar-right">
-        <img  src = {assets.search_icon} alt = "" />
         <div className = "navbar-search-icon">
           <Link to='/cart'><img src={assets.basket_icon} alt="" /></Link>
           <div className = {(getTotalCartAmount() === 0)?"":"dot"}></div>

@@ -1,42 +1,115 @@
-.order-item{
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
-    align-items: start;
-    gap: 30px;
-    border: 1px solid tomato;
+.order.add {
     padding: 20px;
-    margin: 30px 0px;
-    font-size: 14px;
-    color: #505050;
-}
-.order-item-food,.order-item-name{
-    font-weight: 600;
-}
-.order-item-name{
-    margin-top: 30px;
-    margin-bottom: 5px;
-}
-.order-item-address{
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .order.add h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .order-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-details {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .order-details img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .order-item-id {
+    font-size: 1rem;
+    color: #555;
     margin-bottom: 10px;
-}
-.order-item select{
-    background-color: #ffe8e4;
-    border: 1px solid tomato;
-    width: max(10vw,120px);
-    padding: 10px;
-    outline:none;
-}
-@media(max-width:1000px){
-    .order-item{
-        font-size: 12px;
-        grid-template-columns: 0.5fr 2fr 1fr;
-        padding: 15px 8px;
-    }
-    .order-item select{
-        padding: 5px;
-        font-size: 12px;
-    }
-    .order-item img{
-        width: 40px;
-    }
-}
+  }
+  
+  .order-item-food {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .order-item-name {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .order-item-address {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .order-item-phone {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .delivery-personnel {
+    margin-top: 10px;
+  }
+  
+  .delivery-personnel label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .delivery-personnel select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .order-summary {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .order-summary p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .order-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .status-dropdown, .delete-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .status-dropdown label, .delete-dropdown label {
+    font-weight: bold;
+  }
+  
+  .status-dropdown select, .delete-dropdown select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }

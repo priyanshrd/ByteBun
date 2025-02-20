@@ -24,3 +24,12 @@
 .app-download-platforms img:hover{
     transform: scale(1.05);
 }
+
+@media (max-width: 768px){
+    .app-download{
+        margin-top: 50px;
+    }
+    .app-download-platforms img{
+        width: max(40vw,120px);
+    }
+}

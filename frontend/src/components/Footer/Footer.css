@@ -55,12 +55,22 @@
 }
 
 @media (max-width:750px){
-    .footer-content{
+    .footer{
+        margin-top: 35px;
+        color: #d9d9d9;
+        background-color: #323232;
         display: flex;
         flex-direction: column;
-        gap: 35px;
+        align-items: center;
+        gap: 5px;
+        padding: 20px 4vw;
+        padding-top: 0;
+    
     }
     .footer-copyright{
         text-align: center;
+    }
+    .footer-content{
+        display: None;
     }
 }

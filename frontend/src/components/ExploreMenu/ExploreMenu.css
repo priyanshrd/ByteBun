@@ -7,35 +7,56 @@
 .explore-menu h1 {
     color: #262626;
     font-weight: 500;
+    text-align: center;
 }
 
 .explore-menu-text {
-    max-width: 60%;
+   
     color: #808080;
+    text-align: center;
 }
 
-.explore-menu-list {
-    overflow-x: scroll ;
+.explore-menu-list-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    width: 100%;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #888 transparent; /* For Firefox */
+  }
+  
+  .explore-menu-list-container::-webkit-scrollbar {
+    height: 6px; /* Adjust scrollbar height */
+  }
+  
+  .explore-menu-list-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb color */
+    border-radius: 10px;
+  }
+  
+  .explore-menu-list {
     display: flex;
-    justify-content: flex-start; /* Aligns items to the left to allow for scrolling */
+    justify-content: flex-start;
     align-items: center;
     gap: 30px;
     text-align: center;
     margin: 20px 0px;
-    overflow-x: auto; /* Allows horizontal scrolling */
-    flex-wrap: nowrap; /* Prevents wrapping of items */
-    padding-bottom: 10px; /* Adds a bit of padding to prevent clipping of the last item */
-}
-
-.explore-menu-list::-webkit-scrollbar {
-    height: 6px; /* Adjusts the scrollbar height */
-}
-
-.explore-menu-list::-webkit-scrollbar-thumb {
-    background-color: #888; /* Scrollbar thumb color */
-    border-radius: 10px;
-}
-
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    width: max-content; /* Ensure the list doesn't wrap */
+    animation: scroll 20s linear infinite;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .explore-menu-list:hover {
+    animation-play-state: paused; /* Pause on hover */
+  }
 .explore-menu-list-item {
     display: flex;
     flex-direction: column;
@@ -83,6 +104,22 @@
 
 
 @media (max-width:1050px){
+    .explore-menu-text{
+        max-width: 100%;
+        font-size: 14px;
+    }
+}
+
+@media (max-width:768px){
+    .explore-menu-list-item img {
+        width: 66px; /* Ensures all circles have consistent size */
+        height: 66px; /* Matches width for perfect circles */
+        cursor: pointer;
+        border-radius: 50%; /* Creates the circular shape */
+        transition: 0.2s;
+        object-fit: cover; /* Crops and fits images into the circular frame */
+        overflow: hidden; /* Ensures no part of the image exceeds the circle */
+    }
     .explore-menu-text{
         max-width: 100%;
         font-size: 14px;

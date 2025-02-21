@@ -91,11 +91,35 @@
 }
 
 .star-rating {
-  margin-bottom: 10px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Add space between stars and the button */
 }
 
 .star-rating span {
   font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease; /* Smooth color transition */
+}
+
+.star-rating span:hover {
+  color: gold; /* Highlight stars on hover */
+}
+
+.submit-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease; /* Smooth background transition */
+}
+
+.submit-btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
 .track-order-btn {
@@ -128,7 +152,6 @@
   background-color: #218838;
 }
 
-
 .track-order-pending-btn {
   width: 100%;
   padding: 10px;
@@ -144,6 +167,7 @@
 .track-order-btn:hover {
   background-color: #d39e00;
 }
+
 
 /* Media Queries for Mobile Screens */
 @media (max-width: 768px) {

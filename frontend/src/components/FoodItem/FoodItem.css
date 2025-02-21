@@ -159,7 +159,12 @@
     font-size: 14px; /* Smaller font size for counter */
   }
 
-  .star-rating .star {
-    font-size: 16px; /* Smaller star size for mobile */
+  .food-item-counter button {
+    padding: 5px; /* Smaller padding for counter buttons */
+  }
+
+  .star-rating span {
+    font-size: 1rem;
   }
 }
+

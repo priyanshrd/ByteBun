@@ -11,7 +11,8 @@ const Add = () => {
         description: "",
         price: "",
         category: "Salad",
-        restaurant_id: ""  // Added restaurant_id field
+        restaurant_id: "" ,
+        rating: 0  // Added restaurant_id field
     });
 
     const location = useLocation();
@@ -36,6 +37,7 @@ const Add = () => {
         formData.append("category", data.category);
         formData.append("restaurant_id", data.restaurant_id);  // Sending restaurant_id as well
         formData.append("image", image);
+        formData.append("rating", Number(data.rating));  // Sending rating as well
 
         try {
             const response = await axios.post(`${url}/api/food/add`, formData);
@@ -46,7 +48,8 @@ const Add = () => {
                     description: "",
                     price: "",
                     category: data.category,
-                    restaurant_id: location.state?.selectedRestaurantId || ""  // Reset but keep restaurant_id if selected
+                    restaurant_id: data.restaurant_id,
+                    rating: data.rating  // Reset but keep restaurant_id if selected
                 });
                 setImage(false);
             } else {
@@ -111,6 +114,23 @@ const Add = () => {
                 <div className='add-restaurant-id flex-col'>
                     <p>Restaurant ID</p>
                     <input name='restaurant_id' onChange={onChangeHandler} value={data.restaurant_id} type="text" placeholder='Enter Restaurant ID' required />
+                </div>
+                
+                <div className='add-category-price'>
+                    <div className='add-category flex-col'>
+                        <p>Rating</p>
+                        <select name='rating' onChange={onChangeHandler}>
+                            <option value="1">Bad</option>
+                            <option value="2">Average</option>
+                            <option value="3">Good</option>
+                            <option value="4">Very Good</option>
+                            <option value="5">Excellent</option>
+                        </select>
+                    </div>
+                    <div className='add-price flex-col'>
+                        <p>Product Price</p>
+                        <input type="Number" name='price' onChange={onChangeHandler} value={data.price} placeholder='25' required />
+                    </div>
                 </div>
 
                 <button type='submit' className='add-btn'>ADD</button>

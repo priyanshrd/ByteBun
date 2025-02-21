@@ -71,13 +71,14 @@ app.post("/api/chatbot", (req, res) => {
   }
 });
 
+
 // Root endpoint
 app.get("/", (req, res) => {
   res.send("API Working");
 });
 
 // Start server
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, '192.168.247.109', () => {
   console.log(`Server is running on http://192.168.247.109:${port}`);
   console.log(`Server is running on http://localhost:${port}`);
 });

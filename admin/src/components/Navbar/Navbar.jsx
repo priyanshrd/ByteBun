@@ -9,16 +9,16 @@ const Navbar = () => {
 
   // Static list of restaurants with IDs
   const restaurants = [
-    { _id: 'abc123xyz', name: 'The Spicy Kitchen' },
-    { _id: 'def456uvw', name: 'Foodie Paradise' },
-    { _id: 'ghi789rst', name: 'Spice and Tandoor' },
-    { _id: 'jkl012mno', name: 'Urban Chowk' },
-    { _id: 'mno345pqr', name: 'Green Delight' },
-    { _id: 'stu678vwx', name: 'Tasty Treats' },
-    { _id: 'yza901bcd', name: 'Grill & Chill' },
-    { _id: 'efg234hij', name: 'Delicious Dining' },
-    { _id: 'klm567opq', name: 'Biryani Bliss' },
-    { _id: 'rst890uvw', name: 'The Royal Feast' },
+    { _id: 'abc123xyz', name: 'Stonny Brook' },
+    { _id: 'def456uvw', name: 'Ambrosia' },
+    { _id: 'ghi789rst', name: 'The Nachiyar Cafe' },
+    { _id: 'jkl012mno', name: 'Big Barrell Brewpub' },
+    { _id: 'mno345pqr', name: 'Gingerlake View' },
+    { _id: 'stu678vwx', name: 'B Town Barbeque' },
+    { _id: 'yza901bcd', name: 'Omkar Grand' },
+    { _id: 'efg234hij', name: 'The Hangout' },
+    { _id: 'klm567opq', name: 'Full Circle' },
+    { _id: 'rst890uvw', name: 'Royal Andhra Spice' },
   ];
 
   // Get selected restaurant details

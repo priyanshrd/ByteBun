@@ -3,6 +3,7 @@ import './MyOrders.css';
 import axios from 'axios';
 import { StoreContext } from '../../Context/StoreContext';
 import { assets } from '../../assets/assets';
+
 const MyOrders = () => {
   const [data, setData] = useState([]);
   const { url, token, currency } = useContext(StoreContext);
@@ -10,6 +11,8 @@ const MyOrders = () => {
   const [ratings, setRatings] = useState({});
   const [eta, setEta] = useState({});
   const [progress, setProgress] = useState({});
+  const [submittedReviews, setSubmittedReviews] = useState({});
+
 
   const fetchOrders = async () => {
     const response = await axios.post(url + "/api/order/userorders", {}, { headers: { token } });
@@ -22,13 +25,12 @@ const MyOrders = () => {
 
     orders.forEach((order) => {
       if (order.status === "Shipped" || order.status === "In Progress") {
-        // Initialize ETA to 60 minutes
-        newEta[order._id] = 60;
-        newProgress[order._id] = 0;
+        // Calculate remaining time based on current minutes
+        const currentMinutes = new Date().getMinutes();
+        const remainingTime = 60 - currentMinutes; // Remaining time until the next hour
+        newEta[order._id] = remainingTime;
+        newProgress[order._id] = ((60 - remainingTime) / 60) * 100; // Progress percentage
       }
-      // Initialize reviews and ratings from the backend
-      newReviews[order._id] = order.review || '';
-      newRatings[order._id] = order.rating || 0;
     });
 
     setEta(newEta);
@@ -40,17 +42,20 @@ const MyOrders = () => {
 
   const submitReview = async (orderId) => {
     try {
-      // Submit review and rating for the order
       const response = await axios.post(
         url + "/api/order/review",
         { orderId, review: reviews[orderId] || '', rating: ratings[orderId] || 0 },
         { headers: { token } }
       );
-
+  
       if (response.data.success) {
         alert("Review submitted successfully!");
+  
         setReviews((prev) => ({ ...prev, [orderId]: '' }));
         setRatings((prev) => ({ ...prev, [orderId]: 0 }));
+  
+        // Mark this order as reviewed
+        setSubmittedReviews((prev) => ({ ...prev, [orderId]: true }));
       } else {
         alert("Failed to submit review.");
       }
@@ -58,21 +63,70 @@ const MyOrders = () => {
       alert("Error submitting review.");
     }
   };
-
   useEffect(() => {
     if (token) {
       fetchOrders();
     }
   }, [token]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newEta = {};
+      const newProgress = {};
+
+      data.forEach((order) => {
+        if ((order.status === "Shipped" || order.status === "In Progress") && eta[order._id] > 0) {
+          const currentMinutes = new Date().getMinutes();
+          const remainingTime = 60 - currentMinutes; // Remaining time until the next hour
+          const progressPercentage = ((60 - remainingTime) / 60) * 100; // Progress percentage
+
+          newEta[order._id] = remainingTime;
+          newProgress[order._id] = progressPercentage;
+        }
+      });
+
+      setEta(newEta);
+      setProgress(newProgress);
+    }, 6000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [data]);
+
   const handleReviewChange = (orderId, value) => {
-    console.log("Review changed for order:", orderId, "New value:", value); // Debugging
     setReviews((prev) => ({ ...prev, [orderId]: value }));
   };
 
   const handleRatingChange = (orderId, value) => {
-    console.log("Rating changed for order:", orderId, "New value:", value); // Debugging
     setRatings((prev) => ({ ...prev, [orderId]: value }));
+  };
+
+  
+
+  
+
+  const openGoogleMaps = (order) => {
+
+    
+    const places = [
+      "Stonny Brook, Bangalore",
+      "Ambrosia, RR Nagar Bangalore",
+      "The Nachiyar Cafe, RR Nagar, Bangalore",
+      "Big Barrell Brewpub, Bangalore",
+      "Gingerlake View, Bangalore",
+      "B Town Barbeque, Bangalore",
+      "Omkar Grand, Bangalore",
+      "The Hangout, Bangalore",
+      "Full Circle - taproom, Bangalore",
+      "Royal Andhra Spice, Bangalore"
+    ];
+    
+    // Pick a random place from the array
+    const randomPlace = places[Math.floor(Math.random() * places.length)];
+    
+    // Google Maps URL with random place as origin
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(randomPlace)}&destination=Current+Location&travelmode=Two-wheeler&key=AIzaSyDhuwBWZtZmJufgzvbDubT3vGG8D7ZSA7Y`;
+    
+    window.open(googleMapsUrl, '_blank');
   };
 
   return (
@@ -111,29 +165,36 @@ const MyOrders = () => {
             )}
 
             {/* Review Section */}
-            {order.status === "Delivered" && (
+
+            {order.status === "Delivered" && !submittedReviews[order._id] && (
               <div className="review-section">
+                <h4>Leave a Review:</h4>
                 <textarea
                   value={reviews[order._id] || ''}
                   onChange={(e) => handleReviewChange(order._id, e.target.value)}
-                  placeholder={`How was` + order.items.map((item, idx) => (` ${item.name},`)) + ` and our service? \nLet us know how can we improve`}
+                  placeholder="Write your review here..."
                 />
                 <div className="star-rating">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <span
                       key={star}
                       onClick={() => handleRatingChange(order._id, star)}
-                      style={{ color: ratings[order._id] >= star ? 'gold' : 'gray' }}
+                      style={{ cursor: 'pointer', color: ratings[order._id] >= star ? 'gold' : 'gray' }}
                     >
                       ★
                     </span>
                   ))}
-                  <button className="submit-btn" onClick={() => submitReview(order._id)}>
-                    Submit Review
-                  </button>
                 </div>
+                <button className='submit-btn' onClick={() => submitReview(order._id)}>Submit Review</button>
               </div>
             )}
+
+            {/* Track Order Button */}
+            {(order.status === "Shipped" || order.status === "In Progress") ?
+              <button className="track-order-btn" onClick={() => openGoogleMaps(order)}>Track Order</button>
+              :
+              <button className="track-order-delivery-btn" >ThankYou</button>
+            }
           </div>
         ))}
       </div>

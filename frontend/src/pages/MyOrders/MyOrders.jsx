@@ -13,33 +13,33 @@ const MyOrders = () => {
   const [progress, setProgress] = useState({});
   const [submittedReviews, setSubmittedReviews] = useState({});
 
-
+  // Fetch orders from the server
   const fetchOrders = async () => {
-    const response = await axios.post(url + "/api/order/userorders", {}, { headers: { token } });
-    const orders = response.data.data;
+    try {
+      const response = await axios.post(url + "/api/order/userorders", {}, { headers: { token } });
+      const orders = response.data.data;
 
-    const newEta = {};
-    const newProgress = {};
-    const newReviews = {};
-    const newRatings = {};
+      const newEta = {};
+      const newProgress = {};
 
-    orders.forEach((order) => {
-      if (order.status === "Shipped" || order.status === "In Progress") {
-        // Calculate remaining time based on current minutes
-        const currentMinutes = new Date().getMinutes();
-        const remainingTime = 60 - currentMinutes; // Remaining time until the next hour
-        newEta[order._id] = remainingTime;
-        newProgress[order._id] = ((60 - remainingTime) / 60) * 100; // Progress percentage
-      }
-    });
+      orders.forEach((order) => {
+        if (order.status === "Shipped" || order.status === "In Progress") {
+          const currentMinutes = new Date().getMinutes();
+          const remainingTime = 60 - currentMinutes; // Remaining time until the next hour
+          newEta[order._id] = remainingTime;
+          newProgress[order._id] = ((60 - remainingTime) / 60) * 100; // Progress percentage
+        }
+      });
 
-    setEta(newEta);
-    setProgress(newProgress);
-    setData(orders);
-    setReviews(newReviews);
-    setRatings(newRatings);
+      setEta(newEta);
+      setProgress(newProgress);
+      setData(orders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
 
+  // Submit a review for an order
   const submitReview = async (orderId) => {
     try {
       const response = await axios.post(
@@ -47,15 +47,13 @@ const MyOrders = () => {
         { orderId, review: reviews[orderId] || '', rating: ratings[orderId] || 0 },
         { headers: { token } }
       );
-  
+
       if (response.data.success) {
         alert("Review submitted successfully!");
-  
         setReviews((prev) => ({ ...prev, [orderId]: '' }));
         setRatings((prev) => ({ ...prev, [orderId]: 0 }));
-  
-        // Mark this order as reviewed
         setSubmittedReviews((prev) => ({ ...prev, [orderId]: true }));
+        fetchOrders(); // Refresh orders after submitting a review
       } else {
         alert("Failed to submit review.");
       }
@@ -63,12 +61,17 @@ const MyOrders = () => {
       alert("Error submitting review.");
     }
   };
+
+  // Fetch orders periodically
   useEffect(() => {
     if (token) {
-      fetchOrders();
+      fetchOrders(); // Initial fetch
+      const interval = setInterval(fetchOrders, 5000); // Fetch every 5 seconds
+      return () => clearInterval(interval); // Cleanup interval on unmount
     }
   }, [token]);
 
+  // Update ETA and progress every minute
   useEffect(() => {
     const interval = setInterval(() => {
       const newEta = {};
@@ -87,45 +90,41 @@ const MyOrders = () => {
 
       setEta(newEta);
       setProgress(newProgress);
-    }, 6000); // Update every minute
+    }, 60000); // Update every minute
 
     return () => clearInterval(interval);
   }, [data]);
 
+  // Handle review input change
   const handleReviewChange = (orderId, value) => {
     setReviews((prev) => ({ ...prev, [orderId]: value }));
   };
 
+  // Handle rating input change
   const handleRatingChange = (orderId, value) => {
     setRatings((prev) => ({ ...prev, [orderId]: value }));
   };
 
-  
-
-  
-
+  // Open Google Maps for order tracking
   const openGoogleMaps = (order) => {
-
-    
-    const places = [
-      "Stonny Brook, Bangalore",
-      "Ambrosia, RR Nagar Bangalore",
-      "The Nachiyar Cafe, RR Nagar, Bangalore",
-      "Big Barrell Brewpub, Bangalore",
-      "Gingerlake View, Bangalore",
-      "B Town Barbeque, Bangalore",
-      "Omkar Grand, Bangalore",
-      "The Hangout, Bangalore",
-      "Full Circle - taproom, Bangalore",
-      "Royal Andhra Spice, Bangalore"
+    console.log(order);
+  
+    const restaurants = [
+      { _id: 'abc123xyz', name: 'Stonny Brook' },
+      { _id: 'def456uvw', name: 'Ambrosia' },
+      { _id: 'ghi789rst', name: 'The Nachiyar Cafe' },
+      { _id: 'jkl012mno', name: 'Big Barrell Brewpub' },
+      { _id: 'mno345pqr', name: 'Gingerlake View' },
+      { _id: 'stu678vwx', name: 'B Town Barbeque' },
+      { _id: 'yza901bcd', name: 'Omkar Grand' },
+      { _id: 'efg234hij', name: 'The Hangout' },
+      { _id: 'klm567opq', name: 'Full Circle' },
+      { _id: 'rst890uvw', name: 'Royal Andhra Spice' },
     ];
-    
-    // Pick a random place from the array
-    const randomPlace = places[Math.floor(Math.random() * places.length)];
-    
-    // Google Maps URL with random place as origin
-    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(randomPlace)}&destination=Current+Location&travelmode=Two-wheeler&key=AIzaSyDhuwBWZtZmJufgzvbDubT3vGG8D7ZSA7Y`;
-    
+
+    const origin = restaurants.find((restaurant) => restaurant._id === order.items[0].restaurant_id).name;
+    const destination = `${order.address.street} ${order.address.city}`;
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=Two-wheeler&key=AIzaSyDhuwBWZtZmJufgzvbDubT3vGG8D7ZSA7Y`;
     window.open(googleMapsUrl, '_blank');
   };
 
@@ -165,7 +164,6 @@ const MyOrders = () => {
             )}
 
             {/* Review Section */}
-
             {order.status === "Delivered" && !submittedReviews[order._id] && (
               <div className="review-section">
                 <h4>Leave a Review:</h4>
@@ -190,11 +188,9 @@ const MyOrders = () => {
             )}
 
             {/* Track Order Button */}
-            {(order.status === "Shipped" || order.status === "In Progress") ?
+            {(order.status === "Shipped" || order.status === "In Progress" || order.status === "Food Processing") && (
               <button className="track-order-btn" onClick={() => openGoogleMaps(order)}>Track Order</button>
-              :
-              <button className="track-order-delivery-btn" >ThankYou</button>
-            }
+            )}
           </div>
         ))}
       </div>

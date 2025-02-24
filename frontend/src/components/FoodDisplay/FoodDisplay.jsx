@@ -3,15 +3,18 @@ import './FoodDisplay.css';
 import FoodItem from '../FoodItem/FoodItem';
 import { StoreContext } from '../../Context/StoreContext';
 
-const FoodDisplay = ({ category }) => {
+const FoodDisplay = ({ category, selectedRestaurant }) => {
   const { food_list } = useContext(StoreContext);
 
   return (
     <div className='food-display' id='food-display'>
-      <h2>Top dishes near you</h2>
       <div className='food-display-list'>
         {food_list.map((item) => {
-          if (category === "All" || category === item.category) {
+          // Filter based on category or selected restaurant
+          if (
+            (category && ( category === item.category)) ||
+            (selectedRestaurant && selectedRestaurant === item.restaurant_id)
+          ) {
             return (
               <FoodItem
                 key={item._id}
@@ -23,8 +26,8 @@ const FoodDisplay = ({ category }) => {
                 rating={item.rating} // Pass the rating prop here
               />
             );
-          }
-          return null; // Return null for items that don't match the category
+          } else 
+          return null; // Return null for items that don't match the category or restaurant
         })}
       </div>
     </div>

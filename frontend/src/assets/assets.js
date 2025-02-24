@@ -21,6 +21,31 @@ import menu_16 from './menu_16.png'
 import menu_17 from './menu_17.png'
 
 
+import restaurant_1 from './restaurant_1.jpg'
+import restaurant_2 from './restaurant_2.jpg'
+import restaurant_3 from './restaurant_3.jpg'
+import restaurant_4 from './restaurant_4.jpg'
+import restaurant_5 from './restaurant_5.jpg'
+import restaurant_6 from './restaurant_6.jpg'
+import restaurant_7 from './restaurant_7.jpg'
+import restaurant_8 from './restaurant_8.jpg'
+import restaurant_9 from './restaurant_9.jpg'
+import restaurant_10 from './restaurant_10.jpg'
+
+
+export const restaurants = [
+  { _id: 'abc123xyz', name: 'Stonny Brook', image: restaurant_1 },
+  { _id: 'def456uvw', name: 'Ambrosia', image: restaurant_2 },
+  { _id: 'ghi789rst', name: 'The Nachiyar Cafe', image: restaurant_3 },
+  { _id: 'jkl012mno', name: 'Big Barrell Brewpub', image: restaurant_4 },
+  { _id: 'mno345pqr', name: 'Gingerlake View', image: restaurant_5 },
+  { _id: 'stu678vwx', name: 'B Town Barbeque', image: restaurant_6 },
+  { _id: 'yza901bcd', name: 'Omkar Grand', image: restaurant_7 },
+  { _id: 'efg234hij', name: 'The Hangout', image: restaurant_8 },
+  { _id: 'klm567opq', name: 'Full Circle', image: restaurant_9 },
+  { _id: 'rst890uvw', name: 'Royal Andhra Spice', image: restaurant_10 },
+];
+
 import food_1 from './food_1.png'
 import food_2 from './food_2.png'
 import food_3 from './food_3.png'
@@ -71,7 +96,7 @@ import logout_icon from './logout_icon.png'
 import parcel_icon from './parcel_icon.png'
 
 export const currency = '₹'
-export const url = 'http://192.168.247.109:4000'
+export const url = 'https://vzcmbvpd-5173.inc1.devtunnels.ms:4000'
 export const assets = {
     logo,
     basket_icon,

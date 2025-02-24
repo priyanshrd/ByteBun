@@ -58,6 +58,7 @@
 
 .food-item-name-rating {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
@@ -109,12 +110,16 @@
 
 @media (max-width: 768px) {
   .food-display-list {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Smaller tiles for mobile */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller tiles for mobile */
     gap: 10px; /* Smaller gap between items */
   }
 
   .food-item-image {
     height: 100px; /* Smaller image height for mobile */
+  }
+
+  .food-item-name-rating{
+    margin: 0px 0; /* Reduced margin */
   }
 
   .food-item-name-rating p {
@@ -164,7 +169,8 @@
   }
 
   .star-rating span {
-    font-size: 1rem;
+    font-size: 0.5rem;
+
   }
 }
 

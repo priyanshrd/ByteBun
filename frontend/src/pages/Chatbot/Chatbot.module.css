@@ -1,0 +1,129 @@
+.chatbotContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80vh; /* Full screen height */
+  width: 80vw; /* Full screen width */
+  background-color: #5474b4;
+  padding: 0; /* Remove padding to make the header span full width */
+  box-sizing: border-box; /* Ensure padding is included in height/width */
+  border-radius: 10px;
+  overflow: hidden; /* Ensure the header corners are rounded */
+  border: 1px solid #5474b4;
+}
+.errorMessage {
+  color: #ff0000; /* Red text for errors */
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.header {
+  background-color: #5474b4; /* Blue background */
+  padding: 15px 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.headerText {
+  color: #fff; /* White text */
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0; /* Remove default margin */
+}
+
+.chatWindow {
+  flex: 1;
+  overflow-y: auto; /* Make the chat window scrollable */
+  padding: 20px;
+  background-color: #fff;
+}
+
+.messageContainer {
+  margin-bottom: 15px;
+}
+
+.userMessage {
+  text-align: right;
+  color: #007bff; /* Blue for user messages */
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.botMessage {
+  text-align: left;
+  color: #28a745; /* Green for bot messages */
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px; /* Add spacing between input and button */
+  padding: 15px 20px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #5474b4;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .chatbotContainer {
+    width: 80vw; /* Full width on mobile */
+    height: 80vh; /* Full height on mobile */
+    border-radius: 0; /* Remove border radius on mobile */
+  }
+
+  .header {
+    padding: 10px 15px; /* Reduce padding on mobile */
+  }
+
+  .headerText {
+    font-size: 20px; /* Reduce font size on mobile */
+  }
+
+  .chatWindow {
+    padding: 10px; /* Reduce padding on mobile */
+  }
+
+  .messageContainer {
+    margin-bottom: 5px; /* Reduce margin on mobile */
+  }
+
+  .userMessage,
+  .botMessage {
+    font-size: 14px; /* Reduce font size on mobile */
+  }
+
+  .inputContainer {
+    padding: 5px 10px; /* Reduce padding on mobile */
+    gap: 1px; /* Reduce gap on mobile */
+  }
+
+  .input {
+    padding: 4px; /* Reduce padding on mobile */
+    font-size: 10px; /* Reduce font size on mobile */
+  }
+
+  .button {
+    padding: 8px 15px; /* Reduce padding on mobile */
+    font-size: 14px; /* Reduce font size on mobile */
+  }
+}

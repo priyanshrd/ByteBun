@@ -96,7 +96,7 @@ import logout_icon from './logout_icon.png'
 import parcel_icon from './parcel_icon.png'
 
 export const currency = '₹'
-export const url = 'https://bytebun.onrender.com/'
+export const url = 'https://bytebun.onrender.com'
 export const assets = {
     logo,
     basket_icon,

@@ -7,7 +7,7 @@ const ExploreMenu = ({ category, setCategory, onExploreRestaurants = () => {} })
   const exploreMenuListRef = useRef(null); // Ref for the list container
   const [isScrolling, setIsScrolling] = useState(false); // Track if the user is manually scrolling
   const [selectedRestaurant, setSelectedRestaurant] = useState(null); // State for selected restaurant
-  const [activeTab, setActiveTab] = useState('categories'); // State to manage active tab
+  const [activeTab, setActiveTab] = useState('restaurants'); // State to manage active tab
 
   // Reset selectedRestaurant when switching tabs
   useEffect(() => {
